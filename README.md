@@ -49,5 +49,4 @@ ___
 - **NEW** Highlighting protein features, *here* for example p-loop, Switch I and the Effector region of RHOA. We currently support the displaying of up to 9 features (dependent on the given colors in *featurecolors* on line 2518 of this example script).
 
 
-<img src="https://github.com/russelllab/kinaseResistance/blob/68b6218879d1c1e53a2bc3c0b8605b125be59fb2/Create_SVG/Version3/sequence_20230228.svg?sanitize=true">
-
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/95113b2408eb1d215327ffa2c8dd2667c71556eb/Version3/sequence_20230228.svg?sanitize=true">
