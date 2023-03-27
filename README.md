@@ -26,13 +26,21 @@ This applies to users who do not already have an alignment. The following steps 
 - Step 2: Use the downloaded fasta sequence to perform a blast search for similar sequences [blastp](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins). For more information on how to use BLAST please see [Blast Help](https://blast.ncbi.nlm.nih.gov/doc/blast-help/). **Make sure to select "Swissprot" as a database, or otherwise make sure that the retained accessions will be UniprotIDs.**
 
 - Step 3: Select the sequences you prefer and download them.
-![BlastP Example](https://github.com/tschmenger/Annotate_Alignments/blob/cd9645b4be6740b617e480c256a3d558ac4fb6a1/manual_blastp.png?sanitize=true)
+
+![BlastP Example](https://github.com/tschmenger/Annotate_Alignments/blob/cd9645b4be6740b617e480c256a3d558ac4fb6a1/manual_blastp.png?sanitize=true)|
+|:--:| 
+| *Make sure to download the complete sequences.* |
 
 - Step 4: Add the protein of interests fasta manually to the top of the just downloaded file. Change the formatting to roughly mimick the formatting of the remaining entries.
-![fasta example](https://github.com/tschmenger/Annotate_Alignments/blob/f462d36028dde94573a3918502b88d342cef4f3e/manual_FastaAdded.png?sanitize=true)
+
+![fasta example](https://github.com/tschmenger/Annotate_Alignments/blob/f462d36028dde94573a3918502b88d342cef4f3e/manual_FastaAdded.png?sanitize=true)|
+|:--:| 
+| *This is how your prepared fasta sequences should look like.* |
 
 - Step 5: Perform a multiple sequence alignment using [Clustal Omega](https://www.ebi.ac.uk/Tools/msa/clustalo/). Make sure to select **Protein**. Download & save the alignment file for usage with this script. Input the sequences via copy & paste or upload a file.
+
 ![Clustal Example](https://github.com/tschmenger/Annotate_Alignments/blob/202367f70da00a851817482dfaf57b9c5146c3c7/manual_clustal.png?sanitize=true)
+
 Make sure you download the complete MSA (including the clustal version, followed by 2 empty lines, followed by the MSA).
 
 - Step 6: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format. **Recommended** to use the **Create_Information.py** script (see next section).
@@ -67,7 +75,10 @@ We can also retrieve structural features (domains, motifs) from [Interpro](https
 that will be, in our example [https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200](https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200).
 
 There, simply copy & paste the python dictionary into a new file that you can use together with the main script (see below for how to do that).
-![Interpro Dictionary Start](https://github.com/tschmenger/Annotate_Alignments/blob/c286bb1273af2be4edef650cb0db541de08d4866/manual_interpro.png)
+
+![Interpro Dictionary Start](https://github.com/tschmenger/Annotate_Alignments/blob/c286bb1273af2be4edef650cb0db541de08d4866/manual_interpro.png)|
+|:--:| 
+| *The beginning of the InterPro python dictionary.* |
 
 ___
 ## Required libraries/software (main script|Create_svg.py)
