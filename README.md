@@ -12,14 +12,14 @@ In general, this script needs two things:
 
 to work. The dictionary can be created elsewhere and could contain different features than the one I included here, so it is **versatile**.
 
-**For example** using the files in /Latest:
+**For example** using the files in /Version4:
 
 python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt
 
 ___
 ## Required libraries/software
 
-Python 2.7. (sorry folks)
+Python 2.7.
 
 import svgwrite
 
@@ -27,7 +27,7 @@ from Bio import AlignIO
 
 import ast
 
-imposrt sys
+import sys
 ___
 ## Features
 - **New** Added transparent rectangles to highlight a sequence conservation (= identity) over >= 70 %, based on the sequence of interest. The colors for this are taken from CLUSTAL/Jalview.
@@ -35,6 +35,7 @@ ___
 - **New** Added basic heatmapping above the alignment, showing how many highlights per position & per category we have.
 - **New** Added start and end positions for each displayed sequence.
 - Command line functionality. 
+
 To use the script we can now execute the following command:
 `python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt` 
 
@@ -47,7 +48,7 @@ This command has several fields after calling the script:
 | 2     | 30 | The Windowsize, we show +/- the windowsize of residues around the highlighted position|
 | 3     | RHOA_Alignment.clustal_num | The alignment file |
 | 4     | AlignInfos_RHOA.txt | The file containing positional information |
-| 5     | Features_RHOA.txt | A file containing structural/domain features, numbering based on **protein of interest** |
+| 5     | Features_RHOA.txt | A file containing structural/domain features, numbering based on **protein of interest** This is **optional**. |
 
 **Note**: The script allows for a little hack here. If you want a (large) .svg containing the whole alignment just give a big number in field 2, for example 20000. The script will then produce a complete alignment view. **New** Giving "none" instead of a position to be highlighted (field 1) works the same + it removed the position specific rectangle.
 
@@ -65,10 +66,6 @@ This command has several fields after calling the script:
 - GAPs removed: Gaps are printed with white color (i.e. invisible on a white background). Additionally, columns with more than 90 % GAPs are removed from the alignment. Sequences affected by this (i.e. the up to 10 % of sequences that did not have a gap at that position) **are kept and not removed**. 
 
 - Highlighting protein features, *here* for example p-loop, Switch I and the Effector region of RHOA. We currently support the displaying of up to 9 features (dependent on the given colors in *featurecolors* on line 2518 of this example script).
-
-___
-## What is next?
-- Make circle size adjustable by evidence.
 
 ___
 ## The most recent type of results
