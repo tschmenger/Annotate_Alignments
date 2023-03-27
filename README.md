@@ -28,7 +28,7 @@ This applies to users who do not already have an alignment. The following steps 
 ![BlastP Example](https://github.com/tschmenger/Annotate_Alignments/blob/22662af05d47d92d6c25c01a7aad150397bf2a31/manual_blastp.png?sanitize=true)
 
 - Step 4: Perform a multiple sequence alignment using [Clustal Omega](https://www.ebi.ac.uk/Tools/msa/clustalo/). Make sure to select **Protein**. Download & save the alignment file for usage with this script.
-![Clustal Example](https://github.com/tschmenger/Annotate_Alignments/blob/2764d0590cee9aae760bbdba52394d1a8b4aa787/manual_clustal.png?sanitize=true)
+![Clustal Example](https://github.com/tschmenger/Annotate_Alignments/blob/202367f70da00a851817482dfaf57b9c5146c3c7/manual_clustal.png?sanitize=true)
 
 - Step 5: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format.
 
