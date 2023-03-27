@@ -17,7 +17,7 @@ to work. The dictionary can be created elsewhere and could contain different fea
 python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt
 
 ___
-## Preparing the alignment
+## Preparing alignment
 This applies to users who do not already have an alignment. The following steps can used to create an alignment using blastp and clustal omega.
 
 - Step 1: Download the fasta sequence of your protein of interest. For RHOA you could do this via Uniprot, like [this](https://rest.uniprot.org/uniprotkb/P61586.fasta). Note: You can easily build this url using **https://rest.uniprot.org/uniprotkb/** + uniprotID +**.fasta**
@@ -35,10 +35,25 @@ This applies to users who do not already have an alignment. The following steps 
 ![Clustal Example](https://github.com/tschmenger/Annotate_Alignments/blob/202367f70da00a851817482dfaf57b9c5146c3c7/manual_clustal.png?sanitize=true)
 Make sure you download the complete MSA (including the clustal version, followed by 2 empty lines, followed by the MSA).
 
-- Step 6: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format.
+- Step 6: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format. **Recommended** to use the **Create_Information.py** script (see next section).
 
 ___
-## Required libraries/software (main script/create_svg)
+## Required libraries/software (side script|Create_Information.py)
+Python 2.7.
+
+import sys
+
+import urllib
+
+import re
+
+___
+## Prepare information
+Simply run for example **general** `python Create_Information.py Sequences.txt >> Info_Output.txt`, or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
+This will produce a python dictionary file that is suitable for usage with the main script, collecting UniProt information of the **BINDING**, **ACT_SITE**, **MUTAGEN** or **VARIANT** categories.
+
+___
+## Required libraries/software (main script|Create_svg.py)
 
 Python 2.7.
 
