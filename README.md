@@ -112,7 +112,7 @@ This command has several fields after calling the script:
 | 2     | 30 | The Windowsize, we show +/- the windowsize of residues around the highlighted position|
 | 3     | RHOA_BlastpExample_ClustalMSA | The alignment file |
 | 4     | RHOA_Blastp_info.txt | The file containing positional information |
-| 5     | Features_RHOA.txt | A file containing structural/domain features, numbering based on **protein of interest** This is **optional**. |
+| 5     | Features_RHOA.txt | A file containing structural/domain features, numbering based on **protein of interest** This is **optional** and can easily be retrieved from InterPro. |
 
 **Note**: The script allows for a little hack here. If you want a (large) .svg containing the whole alignment just give a big number in field 2, for example 20000. The script will then produce a complete alignment view. **New** Giving "none" instead of a position to be highlighted (field 1) works the same + it removed the position specific rectangle.
 
