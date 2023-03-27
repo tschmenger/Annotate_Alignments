@@ -1,7 +1,7 @@
 ___
 # Introduction
 ## This script
-The file **Version4/create_svg_20230314_kinases_V2.py** comes with several python2 functions that can annotate or highlight positions in a Clustal-formatted alignment.
+The file **Latest/create_svg_20230327.py** comes with several python2 functions that can annotate or highlight positions in a Clustal-formatted alignment.
 
 ___
 ## General use case
@@ -12,9 +12,9 @@ In general, this script needs two things:
 
 to work. The dictionary can be created elsewhere and could contain different features than the one I included here, so it is **versatile**.
 
-**For example** using the files in /Version4:
+**For example** using the files in /Latest:
 
-python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt
+`python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt`
 
 ___
 ## Preparing alignment
@@ -39,6 +39,7 @@ Make sure you download the complete MSA (including the clustal version, followed
 
 ___
 ## Required libraries/software (side script|Create_Information.py)
+
 Python 2.7.
 
 import sys
@@ -49,7 +50,10 @@ import re
 
 ___
 ## Prepare information
-Simply run for example **general** `python Create_Information.py Sequences.txt >> Info_Output.txt`, or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
+Simply run for example **general** `python Create_Information.py Sequences.txt >> Info_Output.txt`
+
+or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
+
 This will produce a python dictionary file that is suitable for usage with the main script, collecting UniProt information of the **BINDING**, **ACT_SITE**, **MUTAGEN** or **VARIANT** categories.
 
 **You should now have both the alignment file and an annotation file and can proceed to use the main script below.**
@@ -74,7 +78,7 @@ ___
 - Command line functionality. 
 
 To use the script we can now execute the following command:
-`python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt` 
+`python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt` 
 
 This command has several fields after calling the script:
 
@@ -83,8 +87,8 @@ This command has several fields after calling the script:
 | 0     | P61586 | The uniprot ID of the protein we are interested in |
 | 1     | 34 | The position to be highlighted |
 | 2     | 30 | The Windowsize, we show +/- the windowsize of residues around the highlighted position|
-| 3     | RHOA_Alignment.clustal_num | The alignment file |
-| 4     | AlignInfos_RHOA.txt | The file containing positional information |
+| 3     | RHOA_BlastpExample_ClustalMSA | The alignment file |
+| 4     | RHOA_Blastp_info.txt | The file containing positional information |
 | 5     | Features_RHOA.txt | A file containing structural/domain features, numbering based on **protein of interest** This is **optional**. |
 
 **Note**: The script allows for a little hack here. If you want a (large) .svg containing the whole alignment just give a big number in field 2, for example 20000. The script will then produce a complete alignment view. **New** Giving "none" instead of a position to be highlighted (field 1) works the same + it removed the position specific rectangle.
