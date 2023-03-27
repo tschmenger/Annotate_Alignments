@@ -26,7 +26,7 @@ This applies to users who do not already have an alignment. The following steps 
 - Step 2: Use the downloaded fasta sequence to perform a blast search for similar sequences [blastp](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins). For more information on how to use BLAST please see [Blast Help](https://blast.ncbi.nlm.nih.gov/doc/blast-help/). **Make sure to select "Swissprot" as a database, or otherwise make sure that the retained accessions will be UniprotIDs.**
 
 - Step 3: Select the sequences you prefer and download them.
-![BlastP Example](https://github.com/tschmenger/Annotate_Alignments/blob/22662af05d47d92d6c25c01a7aad150397bf2a31/manual_blastp.png?sanitize=true)
+![BlastP Example](https://github.com/tschmenger/Annotate_Alignments/blob/cd9645b4be6740b617e480c256a3d558ac4fb6a1/manual_blastp.png?sanitize=true)
 
 - Step 4: Add the protein of interests fasta manually to the top of the just downloaded file. Change the formatting to roughly mimick the formatting of the remaining entries.
 ![fasta example](https://github.com/tschmenger/Annotate_Alignments/blob/f462d36028dde94573a3918502b88d342cef4f3e/manual_FastaAdded.png?sanitize=true)
@@ -116,4 +116,4 @@ The result of executing `python create_svg_20230314_kinasesV2.py P61586 34 30 RH
 
 The result of executing `python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt`.
 
-<img src="https://github.com/tschmenger/Annotate_Alignments/blob/322282f8e553ad334b3597cee563ba871d5d7f22/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/cd9645b4be6740b617e480c256a3d558ac4fb6a1/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
