@@ -113,3 +113,7 @@ ___
 The result of executing `python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt`.
 
 <img src="https://github.com/tschmenger/Annotate_Alignments/blob/41455e4ea5adc7696164e70ba5a98bec6bb21215/Version4/P61586_Position34_Windowsize30.svg?sanitize=true">
+
+The result of executing `python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt`.
+
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/322282f8e553ad334b3597cee563ba871d5d7f22/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
