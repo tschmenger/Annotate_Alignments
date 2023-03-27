@@ -1,7 +1,6 @@
 ___
 # Introduction
-## This script
-The file **Latest/create_svg_20230327.py** comes with several python2 functions that can annotate or highlight positions in a Clustal-formatted alignment.
+The file **Latest/create_svg_20230327.py** comes with several python2 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape or Illustrator.
 
 ___
 ## General use case
