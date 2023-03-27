@@ -7,10 +7,14 @@ ___
 ## General use case
 In general, this script needs two things: 
 * an alignment in clustal format 
-* a python dictionary formatted as {Protein:{Feature:\[Residues]}}, **also see Version3/AlignmentAnnotationdDictionary_Example.txt**
-* an **optional** protein feature dictionary, formatted as (and based on protein of interest) {Feature:[Startposition, Endposition]}, **also see Version3/RegionAnnotationsDictionary_Example.txt**
+* a python dictionary formatted as {Protein:{Feature:\[Residues]}}, 
+* an **optional** protein feature dictionary, formatted as (and based on protein of interest) {Feature:[Startposition, Endposition]}.
 
 to work. The dictionary can be created elsewhere and could contain different features than the one I included here, so it is **versatile**.
+
+**For example** using the files in /Latest:
+
+python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt
 
 ___
 ## Required libraries/software
