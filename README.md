@@ -17,6 +17,17 @@ to work. The dictionary can be created elsewhere and could contain different fea
 python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt
 
 ___
+## Preparing the alignment
+This applies to users who do not already have an alignment. The following steps can used to create an alignment using blastp and clustal omega.
+
+- Step 1: Download the fasta sequence of your protein of interest. For RHOA you could do this via Uniprot, like [this](https://rest.uniprot.org/uniprotkb/P61586.fasta). Note: You can easily build this url using **https://rest.uniprot.org/uniprotkb/** + uniprotID +**.fasta**
+- Step 2: Use the downloaded fasta sequence to perform a blast search for similar sequences [blastp](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE=Proteins). For more information on how to use BLAST please see [Blast Help](https://blast.ncbi.nlm.nih.gov/doc/blast-help/).
+- Step 3: Select the sequences you prefer and download them.
+<img scr="https://github.com/tschmenger/Annotate_Alignments/blob/22662af05d47d92d6c25c01a7aad150397bf2a31/manual_blastp.png?sanitize=true">
+- Step 4: Perform a multiple sequence alignment using [Clustal Omega](https://www.ebi.ac.uk/Tools/msa/clustalo/). Make sure to select **Protein**. Download & save the alignment file for usage with this script.
+- Step 5: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format.
+
+___
 ## Required libraries/software
 
 Python 2.7.
