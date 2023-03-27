@@ -33,7 +33,7 @@ This applies to users who do not already have an alignment. The following steps 
 - Step 5: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format.
 
 ___
-## Required libraries/software
+## Required libraries/software (main script/create_svg)
 
 Python 2.7.
 
