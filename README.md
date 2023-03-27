@@ -57,6 +57,13 @@ or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> 
 This will produce a python dictionary file that is suitable for usage with the main script, collecting UniProt information of the **BINDING**, **ACT_SITE**, **MUTAGEN** or **VARIANT** categories.
 
 **You should now have both the alignment file and an annotation file and can proceed to use the main script below.**
+
+___
+## Optional: Retrieving features
+We can also retrieve structural features (domains, motifs) from [Interpro](https://www.ebi.ac.uk/interpro/) following this link format:
+`https://www.ebi.ac.uk/interpro/api/protein/UniProt/**UniprotID**/?residues&page_size=200`
+that will be, in our example [https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200](https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200).
+
 ___
 ## Required libraries/software (main script|Create_svg.py)
 
