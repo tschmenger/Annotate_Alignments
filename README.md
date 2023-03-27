@@ -61,8 +61,13 @@ This will produce a python dictionary file that is suitable for usage with the m
 ___
 ## Optional: Retrieving features
 We can also retrieve structural features (domains, motifs) from [Interpro](https://www.ebi.ac.uk/interpro/) following this link format:
-`https://www.ebi.ac.uk/interpro/api/protein/UniProt/**UniprotID**/?residues&page_size=200`
+
+`https://www.ebi.ac.uk/interpro/api/protein/UniProt/UniprotID/?residues&page_size=200`
+
 that will be, in our example [https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200](https://www.ebi.ac.uk/interpro/api/protein/UniProt/P61586/?residues&page_size=200).
+
+There, simply copy & paste the python dictionary into a new file that you can use together with the main script (see below for how to do that).
+![Interpro Dictionary Start](https://github.com/tschmenger/Annotate_Alignments/blob/c286bb1273af2be4edef650cb0db541de08d4866/manual_interpro.png)
 
 ___
 ## Required libraries/software (main script|Create_svg.py)
