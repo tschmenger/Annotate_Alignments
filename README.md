@@ -52,6 +52,7 @@ ___
 Simply run for example **general** `python Create_Information.py Sequences.txt >> Info_Output.txt`, or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
 This will produce a python dictionary file that is suitable for usage with the main script, collecting UniProt information of the **BINDING**, **ACT_SITE**, **MUTAGEN** or **VARIANT** categories.
 
+**You should now have both the alignment file and an annotation file and can proceed to use the main script below.**
 ___
 ## Required libraries/software (main script|Create_svg.py)
 
