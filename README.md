@@ -30,7 +30,7 @@ This applies to users who do not already have an alignment. The following steps 
 |:--:| 
 | *Make sure to download the complete sequences.* |
 
-- Step 4: Add the protein of interests fasta manually to the top of the just downloaded file. Change the formatting to roughly mimick the formatting of the remaining entries.
+- Step 4: Add the protein of interests fasta manually to the top of the just downloaded file. Change the formatting to roughly mimic the formatting of the remaining entries.
 
 ![fasta example](https://github.com/tschmenger/Annotate_Alignments/blob/f462d36028dde94573a3918502b88d342cef4f3e/manual_FastaAdded.png?sanitize=true)|
 |:--:| 
