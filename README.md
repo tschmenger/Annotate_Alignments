@@ -1,6 +1,6 @@
 ___
 # Introduction
-The file **Latest/create_svg_20230327.py** comes with several python2 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape or Illustrator.
+The file **Latest/Annotate_Alignment_V5.py* comes with several python2 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape or Illustrator.
 
 ___
 ## General use case
@@ -13,7 +13,7 @@ to work. The dictionary can be created elsewhere and could contain different fea
 
 **For example** using the files in /Latest:
 
-`python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt`
+`python Annotate_Alignment_V5.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`
 
 ___
 ## Preparing alignment
@@ -93,6 +93,7 @@ import ast
 import sys
 ___
 ## Features
+- **New** Added tooltips that show up on mouseover events. Works on residues with functional information.
 - **New** Added transparent rectangles to highlight a sequence conservation (= identity) over >= 70 %, based on the sequence of interest. The colors for this are taken from CLUSTAL/Jalview.
 - **New** Change highlighting to circles. Circle radius can later be adjusted based on evidence.
 - **New** Added basic heatmapping above the alignment, showing how many highlights per position & per category we have.
@@ -100,7 +101,7 @@ ___
 - Command line functionality. 
 
 To use the script we can now execute the following command:
-`python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt` 
+`python Annotate_Alignment_V5.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt` 
 
 This command has several fields after calling the script:
 
@@ -132,10 +133,6 @@ This command has several fields after calling the script:
 
 ___
 ## The most recent type of results
-The result of executing `python create_svg_20230314_kinasesV2.py P61586 34 30 RHOA_Alignment.clustal_num AlignInfos_RHOA.txt Features_RHOA.txt`.
+The result of executing `python Annotate_Alignment_V5.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
 
-<img src="https://github.com/tschmenger/Annotate_Alignments/blob/41455e4ea5adc7696164e70ba5a98bec6bb21215/Version4/P61586_Position34_Windowsize30.svg?sanitize=true">
-
-The result of executing `python create_svg_20230327.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt`.
-
-<img src="https://github.com/tschmenger/Annotate_Alignments/blob/cd9645b4be6740b617e480c256a3d558ac4fb6a1/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/d51979b943378ef774edd651e1d15d682361a980/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
