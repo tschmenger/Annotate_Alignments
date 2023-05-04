@@ -45,7 +45,7 @@ Make sure you download the complete MSA (including the clustal version, followed
 - Step 6: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format. **Recommended** to use the **Create_Information.py** script (see next section).
 
 ___
-## Required libraries/software (side script|Create_Information.py)
+## Required libraries/software (side script --> **Create_Information.py**)
 
 Python 2.7.
 
@@ -80,7 +80,7 @@ There, simply copy & paste the python dictionary into a new file that you can us
 | *The beginning of the InterPro python dictionary.* |
 
 ___
-## Required libraries/software (main script|Create_svg.py)
+## Required libraries/software (main script -- > **Annotate_Alignment_V5.py**)
 
 Python 2.7.
 
