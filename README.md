@@ -3,6 +3,9 @@ ___
 The file **Latest/Annotate_Alignment_V5.py* comes with several python2 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape or Illustrator.
 
 ___
+## Citation
+Please cite Publication1 and Publication2 when using this repository.
+___
 ## General use case
 In general, this script needs two things: 
 * an alignment in clustal format 
