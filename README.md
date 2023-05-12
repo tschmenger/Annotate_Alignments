@@ -1,6 +1,6 @@
 ___
 # Introduction
-The file **Latest/Annotate_Alignment_V6.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
+The file *Latest/Annotate_Alignment_V6.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
 
 ___
 ## Citation
