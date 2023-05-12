@@ -1,6 +1,6 @@
 ___
 # Introduction
-The file **Latest/Annotate_Alignment_V5.py* comes with several python2 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape or Illustrator.
+The file **Latest/Annotate_Alignment_V6.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
 
 ___
 ## Citation
@@ -16,7 +16,7 @@ to work. The dictionary can be created elsewhere and could contain different fea
 
 **For example** using the files in /Latest:
 
-`python Annotate_Alignment_V5.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`
+`python3 Annotate_Alignment_V6.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`
 
 ___
 ## Preparing alignment
@@ -83,19 +83,17 @@ There, simply copy & paste the python dictionary into a new file that you can us
 | *The beginning of the InterPro python dictionary.* |
 
 ___
-## Required libraries/software (main script -- > **Annotate_Alignment_V5.py**)
+## Required libraries/software (main script -- > **Annotate_Alignment_V6.py**)
 
-Python 2.7.
+Python 3.6.8+
 
-import svgwrite
+[svgwrite](https://pypi.org/project/svgwrite/)
 
-from Bio import AlignIO
+[Biopython](https://biopython.org/)
 
-import ast
-
-import sys
 ___
 ## Features
+- **NEW** Upgraded the script to python 3 and cosmetic changes
 - **New** Added tooltips that show up on mouseover events. Works on residues with functional information.
 - **New** Added transparent rectangles to highlight a sequence conservation (= identity) over >= 70 %, based on the sequence of interest. The colors for this are taken from CLUSTAL/Jalview.
 - **New** Change highlighting to circles. Circle radius can later be adjusted based on evidence.
@@ -136,6 +134,6 @@ This command has several fields after calling the script:
 
 ___
 ## The most recent type of results
-The result of executing `python Annotate_Alignment_V5.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
+The result of executing `python3 Annotate_Alignment_V6.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
 
-<img src="https://github.com/tschmenger/Annotate_Alignments/blob/d51979b943378ef774edd651e1d15d682361a980/Latest/P61586_Position34_Windowsize30.svg?sanitize=true">
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/41e6f4790b868b385e38997053c199d166b42c8f/Latest/P61586_Position34_Windowsize30_20230512.svg?sanitize=true">
