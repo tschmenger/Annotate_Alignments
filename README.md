@@ -48,21 +48,23 @@ Make sure you download the complete MSA (including the clustal version, followed
 - Step 6: Annotate the alignment manually or programmatically with whatever information you want, following the aforementioned format. **Recommended** to use the **Create_Information.py** script (see next section).
 
 ___
-## Required libraries/software (side script --> **Create_Information.py**)
+## Required libraries/software (side script --> **Create_Information3.py**)
 
-Python 2.7.
+Python 3.6.8+
 
 import sys
 
-import urllib
+import urllib.request
 
 import re
 
+import time
+
 ___
 ## Prepare information
-Simply run for example **general** `python Create_Information.py Sequences.txt >> Info_Output.txt`
+Simply run for example **general** `python Create_Information3.py Sequences.txt >> Info_Output.txt`
 
-or using **example** `python Create_Information.py RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
+or using **example** `python Create_Information.py3 RHOA_BlastP_sequences.txt >> RHOA_Blastp_info.txt`.
 
 This will produce a python dictionary file that is suitable for usage with the main script, collecting UniProt information of the **BINDING**, **ACT_SITE**, **MUTAGEN** or **VARIANT** categories.
 
@@ -93,7 +95,7 @@ Python 3.6.8+
 
 ___
 ## Features
-- **NEW** Upgraded the script to python 3 and cosmetic changes
+- **NEW** Upgraded both scripts to python 3 plus added some cosmetic changes
 - **New** Added tooltips that show up on mouseover events. Works on residues with functional information.
 - **New** Added transparent rectangles to highlight a sequence conservation (= identity) over >= 70 %, based on the sequence of interest. The colors for this are taken from CLUSTAL/Jalview.
 - **New** Change highlighting to circles. Circle radius can later be adjusted based on evidence.
