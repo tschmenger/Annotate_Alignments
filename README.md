@@ -4,7 +4,11 @@ The file *Latest/Annotate_Alignment_V6.py* comes with several python3.6.8 functi
 
 ___
 ## Citation
-Please cite Publication1 and Publication2 when using this repository.
+Please cite 
+
+`Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2023` 
+
+when using this work.
 ___
 ## General use case
 In general, this script needs two things: 
