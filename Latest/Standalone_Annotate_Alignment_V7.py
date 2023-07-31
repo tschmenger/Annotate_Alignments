@@ -1,3 +1,15 @@
+#	# ###### ###### #    # ###### ######
+#	# #	 #      ##   # #      #
+#	# #      ###### # #  # #####  ######
+#	# #      #      #  # #      # #  
+#	# #      #      #   ##      # #
+######	# ###### ###### #    # ###### ######
+# 	This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, 
+#	either version 3 of the License, or (at your option) any later version.
+# 	This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+#	See the GNU General Public License for more details.
+# 	You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. 
+#########################################################################################################################################################################################################################
 #!/usr/bin/env/Python 3.6.8
 import sys
 import urllib.request
@@ -7,7 +19,7 @@ whitespace_killer=re.compile(r"\s+")
 import time
 from Bio import AlignIO
 sys.path.append('/home/bq_tschmenger/svgwrite/')	### https://pypi.org/project/svgwrite/
-import svgwrite	### preferably install it using pip
+import svgwrite						### preferably install it using pip
 import ast
 import logging
 import math
@@ -410,7 +422,7 @@ def interprodownloader(identif):
 	BASE_URL 	= "https://www.ebi.ac.uk/interpro/api/protein/UniProt/"+identif+"/?residues&page_size=200"
 	req 		= urllib.request.urlopen(BASE_URL)
 	the_page 	= req.read().decode('utf-8')
-	interpro 	= ast.literal_eval(the_page)	### just for the record, Interpro is the most over-engineered website I ever had to work with, it is basically useless for wet lab scientists
+	interpro 	= ast.literal_eval(the_page)	
 	interpro_processed = {}
 	for k in interpro:
 		for loca in interpro[k]["locations"]:
@@ -504,16 +516,16 @@ def create_svg(sequences_dict, positions, colordict, startposition, windowsize, 
             y = 60
             dwg.add(dwg.rect((x-100, y), (90, 14), fill="yellow"))
             if len(drawname) < 8:
-                dwg.add(dwg.text(drawname, insert = (x-60,y+7), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
-                dwg.add(dwg.text(drawname, insert = (x-60,Konservierungsypsilon+5), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,y+7), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,Konservierungsypsilon+5), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
             else:
-                dwg.add(dwg.text(drawname, insert = (x-60,y+7), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
-                dwg.add(dwg.text(drawname, insert = (x-60,Konservierungsypsilon+5), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,y+7), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,Konservierungsypsilon+5), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
         else:
             if len(drawname) < 8:
-                dwg.add(dwg.text(drawname, insert = (x-60,y+7), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,y+7), text_anchor='end', dominant_baseline='central', font_size='10px', font_family='Arial', font_weight='bold', fill='black'))
             else:
-                dwg.add(dwg.text(drawname, insert = (x-60,y+7), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
+                dwg.add(dwg.text(drawname, insert = (x-45,y+7), text_anchor='end', dominant_baseline='central', font_size='7px', font_family='Arial', font_weight='bold', fill='black'))
 	#charactercount = 0
         totalcount = 0
         if startingpoint <= 0:
