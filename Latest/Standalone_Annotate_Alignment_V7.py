@@ -761,6 +761,10 @@ def create_svg(sequences_dict, positions, colordict, startposition, windowsize, 
     writeFile.close()
 #########################################################################################################################################################################################################################
 ###	python3 Annotate_Alignment_V6.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt
+if len(sys.argv) != 7:
+	print("""Please provide the correct input parameters.\nThe command should look like this:\npython3 Annotate_Alignment_V6.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal none none""")	
+	exit()
+
 alignmentfile 		= sys.argv[4]
 ids 			= idgetter(alignmentfile)
 sequences 		= CUSTOM_ALIGN(alignmentfile)
