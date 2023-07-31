@@ -143,3 +143,7 @@ ___
 The result of executing `python3 Annotate_Alignment_V6.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
 
 <img src="https://github.com/tschmenger/Annotate_Alignments/blob/41e6f4790b868b385e38997053c199d166b42c8f/Latest/P61586_Position34_Windowsize30_20230512.svg?sanitize=true">
+
+___
+# License
+tschmenger/Annotate_Alignments is licensed under the **GNU General Public License v3.0**
