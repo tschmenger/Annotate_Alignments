@@ -114,7 +114,7 @@ ___
 ## The most recent type of results
 The result of executing `python3 Standalone_Annotate_Alignment_V7.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
 
-<img src="https://github.com/tschmenger/Annotate_Alignments/blob/41e6f4790b868b385e38997053c199d166b42c8f/Latest/P61586_Position34_Windowsize30_20230512.svg?sanitize=true">
+<img src="https://github.com/tschmenger/Annotate_Alignments/blob/e9a1434d2f515a950cbb3734d9430d7020339324/Latest/RHOA_HUMAN_Position34_Windowsize30.svg?sanitize=true">
 
 ___
 # License
