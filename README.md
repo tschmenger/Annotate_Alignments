@@ -117,4 +117,4 @@ ___
 tschmenger/Annotate_Alignments is licensed under the **GNU General Public License v3.0**
 
 # Acknowledgements
-Thanks to @gurdeep330 for providing feedback and suggestions.
+Thanks to [@gurdeep330](https://github.com/gurdeep330) for providing feedback and suggestions.
