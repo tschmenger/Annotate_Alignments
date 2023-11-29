@@ -1,6 +1,6 @@
 ___
 # Introduction
-The file *Latest/Standalone_Annotate_Alignment_V8.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
+The file *Latest/Standalone_Annotate_Alignment_V9.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
 
 ___
 ## Citation
@@ -23,11 +23,11 @@ In general, this script needs only one thing to work:
 
 **User prodived dictionaries**
 
-`python3 Standalone_Annotate_Alignment_V8.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`
+`python3 Standalone_Annotate_Alignment_V9.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`
 
 **Minimal example**
 
-`python3 Standalone_Annotate_Alignment_V8.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal none none`
+`python3 Standalone_Annotate_Alignment_V9.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal none none`
 
 ___
 ## Preparing alignment
@@ -76,7 +76,7 @@ ___
 - Command line functionality. 
 
 To use the script we can now execute the following command:
-`python Standalone_Annotate_Alignment_V8.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt` 
+`python Standalone_Annotate_Alignment_V9.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt` 
 
 This command has several fields after calling the script:
 
@@ -108,7 +108,7 @@ This command has several fields after calling the script:
 
 ___
 ## The most recent type of results
-The result of executing `python3 Standalone_Annotate_Alignment_V7.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
+The result of executing `python3 Standalone_Annotate_Alignment_V9.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal RHOA_Blastp_info.txt Features_RHOA.txt`.
 
 <img src="https://github.com/tschmenger/Annotate_Alignments/blob/e9a1434d2f515a950cbb3734d9430d7020339324/Latest/RHOA_HUMAN_Position34_Windowsize30.svg?sanitize=true">
 
