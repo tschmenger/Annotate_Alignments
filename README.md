@@ -6,6 +6,10 @@ ___
 ## Citation
 Please cite 
 
+`Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.`
+
+and
+
 `Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2023` 
 
 when using this work.
