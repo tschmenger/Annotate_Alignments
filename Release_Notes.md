@@ -1,3 +1,7 @@
+# V11 (04. October 2024)
+- Fixed feature annotation text incorrectly overlapping when there are more than 9 different features
+- added % conservation mouseover text to the black sequence conservation bars
+
 # V8 (09. August 2023)
 Applied several changes to the script.
 - added progress notifications
