@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALVI</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .input-row {
+            display: flex;
+            gap: 50px; /* Space between the input groups */
+            justify-content: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column; /* Stack label and input vertically */
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        p {
+            line-height: 1.6;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 15px 0 5px;
+        }
+        input[type="text"], textarea, input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="range"] {
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3498db;
+            cursor: pointer;
+        }
+        #topguns{
+          width: 30px;
+        }
+        .info-sections-container {
+            position: sticky; /* Keeps the sections in place */
+            top: 10px;       /* Distance from the top of the screen */
+            left: 10px;      /* Distance from the left side of the screen */
+            z-index: 1000;   /* Ensures it stays above other content */
+            background-color: white; /* Makes the container visible */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            max-width: 300px; /* Keeps it compact */
+}
+        .info-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background-color: #f9f9f9;
+            padding: 0 15px; /* Padding collapses when hidden */
+            margin-top: 10px;
+        }
+
+        .info-section p, .info-section h2 {
+            margin: 15px 0;
+        }
+
+        .toggle-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .toggle-button:hover {
+            background-color: #2980b9;
+        }
+
+        .indicator {
+            font-size: 16px;
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #example {
+          background-color: #FFFF00; /* yellow color for download buttons */
+          color: black;
+        }
+        #download1, #download2 {
+          background-color: #e74c3c; /* Red color for download buttons */
+          color: white;
+        }
+        #download1:hover, #download2:hover {
+          background-color: #c0392b; /* Darker red for hover effect */
+        }
+        #example:hover {
+          background-color: #F4C430; /* darker yellow color for download buttons */
+
+        }
+        /* Initially hide the download buttons */
+        #buttons {
+            display: none;  /* Hidden by default */
+            margin-left: 20px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+        }
+        .loading p {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+        .loading::before {
+            content: '';
+            display: block;
+            margin: 0 auto;
+            width: 50px;
+            height: 50px;
+            border: 5px solid #ddd;
+            border-top-color: #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .result, #buttons {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-direction: column;
+        }
+        .slider-container input[type="range"] {
+          margin-top: 0px;
+        }
+        .slider-value {
+            font-weight: bold;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+
+  <div class="info-sections-container">
+      <button class="toggle-button" onclick="toggleInfo('tool-info', this)">
+          <span>What is this tool?</span> <span class="indicator">▼</span>
+      </button>
+      <div id="tool-info" class="info-section">
+          <h2>About the Tool</h2>
+          <p>This tool helps you generate contextual alignments for protein sequences.<br>Those will be highlighted with functional information from Uniprot (see the
+            <span style="color:black;background-color:#FFFF00">Example</span>).</p>
+          <p>For more instructions also see <a href="https://github.com/tschmenger/Annotate_Alignments?tab=readme-ov-file#preparing-alignment">github</a></p>
+      </div>
+
+      <button class="toggle-button" onclick="toggleInfo('citation-info', this)">
+          <span>Citation</span> <span class="indicator">▼</span>
+      </button>
+      <div id="citation-info" class="info-section">
+          <h2>How to Cite</h2>
+          <p>Please cite this tool as follows:</p>
+          <p><i>1) <small>Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.</small></i><p>
+          <p>and</p>
+          <p><i>2) <small>Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2023.</small></i><p>
+
+      </div>
+
+      <button class="toggle-button" onclick="toggleInfo('contact-info', this)">
+          <span>Contact</span> <span class="indicator">▼</span>
+      </button>
+      <div id="contact-info" class="info-section">
+          <h2>Contact Information</h2>
+          <p>If you have any questions, reach out to torsten.schmenger [ a t ] bioquant.uni-heidelberg.de.</p>
+          <p>You can also check: <a href="https://github.com/tschmenger/Annotate_Alignments">github</a></p>
+      </div>
+  </div>
+
+
+    <div class="container">
+        <h1>CALVI - Contextual Alignment Viewer</h1>
+        <p>Use this tool to generate alignments based on functional information</p>
+
+        <h2>Input Fields</h2>
+        <div class="input-row">
+            <div class="input-group">
+                <label for="input1">Target Uniprot (Release: 2024_06) Accession:</label>
+                <input type="text" id="input1" placeholder="Enter Uniprot accession">
+            </div>
+            <div class="input-group">
+                <label for="input2">Position of Interest:</label>
+                <input type="text" id="input2" placeholder="Enter position">
+            </div>
+        </div>
+
+        <div class="slider-container">
+            <label for="slider">+/- Residues Around Position of Interest:</label>
+            <input type="range" id="slider" min="0" max="100" value="10" oninput="updateSliderValue(this.value)">
+            <span class="slider-value" id="slider-value">10</span>
+        </div>
+
+        <div>
+            <label for="topguns">Shown number of sequences:</label>
+            <input type="text" id="topguns" value="10">
+        </div>
+
+
+        <label for="clustal_input">Clustal Omega Alignment:</label>
+        <textarea id="clustal_input" rows="4" placeholder="Paste your Clustal Omega alignment here..."></textarea>
+
+        <button id="submit" onclick="handleSubmit()">Submit</button>
+        <button id="example" onclick="showExample()">Example</button>
+        <div id="buttons" style="display: none; margin-left: 20px;">
+            <button id="download1" disabled>Download .svg</button>
+            <button id="download2" disabled>Download .svg (easy print)</button>
+        </div>
+
+        <p id="error-message" class="error"></p>
+
+        <div id="loading" class="loading">
+            <p>Please wait, the result is being processed...</p>
+        </div>
+
+        <div id="result" class="result">
+            <h2>Result</h2>
+            <p>Your .svg result is ready!</p>
+        </div>
+
+
+    </div>
+
+    <script>
+        function updateSliderValue(value) {
+            document.getElementById('slider-value').textContent = value;
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+        }
+
+        function clearError() {
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = '';
+            errorMessage.style.display = 'none';
+        }
+
+        function handleSubmit() {
+            clearError();
+
+            // Input validation
+            const input1 = document.getElementById('input1').value.trim();
+            const input2 = document.getElementById('input2').value.trim();
+            const slider = document.getElementById('slider').value.trim();
+            const clustalInput = document.getElementById('clustal_input').value.trim();
+            const topguns = document.getElementById('topguns').value.trim();
+            if (!input1 || !input2 || !clustalInput) {
+                showError('All fields are required. Please fill out all fields.');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+
+            fetch('/generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ input1, input2, slider, clustalInput, topguns })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Server error: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Hide the loading spinner and show the result section
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('buttons').style.display = 'inline-block';
+                    // Update the download buttons
+                    const download1 = document.getElementById('download1');
+                    const download2 = document.getElementById('download2');
+
+                    download1.disabled = false;
+                    download2.disabled = false;
+                    const svgPath = `/static/results/${data.filename}`;
+                    const svgPrintPath = `/static/results/${data.filename_print}`;
+                    download1.onclick = () => downloadFile(svgPath);
+                    download2.onclick = () => downloadFile(svgPrintPath);
+                    // Display the SVG in the result section
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `<img src="${svgPath}" alt="Generated SVG" style="max-width:100%;">`;
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = 'none';
+                    showError('An error occurred while processing your request. Please check your input or try again later.');
+                    console.error('Error:', error);
+                });
+        }
+
+        function showExample() {
+            fetch('/example_data')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch example data.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Populate the form with the example values
+                    document.getElementById('input1').value = data.input1;
+                    document.getElementById('input2').value = data.input2;
+                    document.getElementById('slider').value = data.slider;
+                    updateSliderValue(data.slider); // Update the slider display
+                    document.getElementById('clustal_input').value = data.clustalInput;
+
+                    // Display the pre-generated SVG
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `<h3>Example Preview:</h3><img src="${data.svgPath}" alt="Example SVG" style="max-width:100%;">`;
+                    resultDiv.style.display = 'block';
+
+                    // Enable the download buttons for the example
+                    const buttonsDiv = document.getElementById('buttons');
+                    buttonsDiv.style.display = 'inline-block';
+                    const download1 = document.getElementById('download1');
+                    const download2 = document.getElementById('download2');
+                    download1.disabled = false;
+                    download2.disabled = false;
+                    download1.onclick = () => downloadFile(data.svgPath);
+                    download2.onclick = () => downloadFile(data.svgPrintPath);
+                })
+                .catch(error => {
+                    console.error('Error fetching example data:', error);
+                    alert('Could not load example data. Please try again later.');
+                });
+        }
+
+        function downloadFile(filename) {
+            const link = document.createElement('a');
+            link.href = `${filename}`;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          };
+
+          function toggleInfo(sectionId, button) {
+              const section = document.getElementById(sectionId);
+              const indicator = button.querySelector('.indicator');
+
+              if (section.style.maxHeight) {
+                  // Section is open, collapse it
+                  section.style.maxHeight = null;
+                  indicator.textContent = '▼'; // Down arrow
+              } else {
+                  // Section is closed, expand it
+                  section.style.maxHeight = section.scrollHeight + 'px';
+                  indicator.textContent = '▲'; // Up arrow
+              }
+          }
+
+
+    </script>
+</body>
+</html>
