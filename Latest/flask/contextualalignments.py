@@ -91,26 +91,31 @@ def idgetter(alignmentfile):
     return idcontainer
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 def HOMOL_UNIP_GETTER(idc, inputdictionary_two):
-    with gzip.open("Data_V0_20250104.txt.gz") as content:
-        for oldline in content:
-            line = oldline.decode('utf-8')
-            if line.strip() and "None" not in line:
-                primary_acc = line.split("\t")[0]
-                secondary_acc = line.split("\t")[2]
-                genus   = line.split("\t")[1].split("_")[0]
-                for k in idc:
-                    if k in primary_acc or k in secondary_acc:
-                        translator[k]=genus.replace(" ","")
-                        mod_type = line.split("\t")[3].replace(" ","")
-                        affectedposition = line.split("\t")[4].replace(" ","").replace("\n","")
-                        if k not in inputdictionary_two:
-                            inputdictionary_two[k]={}
-                            inputdictionary_two[k][mod_type]=[affectedposition]
-                        elif mod_type not in inputdictionary_two[k]:
-                            inputdictionary_two[k][mod_type]=[affectedposition]
-                        else:
-                            inputdictionary_two[k][mod_type].append(affectedposition)
-    return inputdictionary_two, translator
+	for k in idc:
+		subdirname = k[0:4]
+		try:
+			filepathname = "uniprotdata/"+subdirname+"/"+str(k)+".txt.gz"
+			with gzip.open(filepathname,"r") as infl:
+				for oldline in infl:
+					line = oldline.decode('utf-8')
+					primary_acc = line.split("\t")[0]
+					secondary_acc = line.split("\t")[2]
+					genus   = line.split("\t")[1].split("_")[0]
+					translator[k]=genus.replace(" ","")
+					mod_type = line.split("\t")[3].replace(" ","")
+					affectedposition = line.split("\t")[4].replace(" ","").replace("\n","")
+					if k not in inputdictionary_two:
+						inputdictionary_two[k]={}
+						inputdictionary_two[k][mod_type]=[affectedposition]
+					elif mod_type not in inputdictionary_two[k]:
+						inputdictionary_two[k][mod_type]=[affectedposition]
+					else:
+						inputdictionary_two[k][mod_type].append(affectedposition)
+		except:
+			#logging.exception("message")
+			pass
+
+	return inputdictionary_two, translator
 #########################################################################################################################################################################################################################
 feature_dict = {}
 gapletters = [".","-"]
@@ -228,32 +233,26 @@ def SHOWORDER(seqs, doi, starti, endi, goi, maxnumber):
 	return ranking
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 def interprodownloader(identif):
-	import ast
-	BASE_URL 	= "https://www.ebi.ac.uk/interpro/api/protein/UniProt/"+identif+"/?residues&page_size=200"
-	req 		= urllib.request.urlopen(BASE_URL)
-	the_page 	= req.read().decode('utf-8')
-	interpro 	= ast.literal_eval(the_page)
 	interpro_processed = {}
-	for k in interpro:
-		for loca in interpro[k]["locations"]:
-			descr = ""
-			for b in loca["description"]:	###              'locations': [{'description': 'GEF (guanine nucleotide exchange factor) interaction site',
-				descr = descr+b
-			if "(" in descr:
-				front_descr = descr.split("(")[0]
-				back_descr = descr.split(")")[1]
-				descr = front_descr+back_descr
-			for categ in loca["fragments"]: ### 		  categ are dictionaries, again, because the nesting never ends here
-				for element in categ:
-					starting = categ["start"]
-					ending = categ["end"]
-					if int(starting) == int(ending):
-						residue = int(starting)
-					if descr not in interpro_processed:
-						interpro_processed[descr]=[residue]
-					else:
-						if residue not in interpro_processed[descr]:
-							interpro_processed[descr].append(residue)
+	try:
+		subdirname = identif[0:4]
+		filepathname = "interprodata/"+subdirname+"/"+str(identif)+"_interpro.txt.gz"
+		with gzip.open(filepathname,"r") as infl:
+			for oldline in infl:
+				line = oldline.decode('utf-8')	### Q197B6   BINDING: ATP.   [62, 62, 62, 213, 213, 213]
+				unipid = line.split("\t")[0].replace(" ","")
+				if unipid == identif:
+					categ = line.split("\t")[1].replace(" ","")
+					rawpossinterest = line.split("\t")[2].replace(" ","")
+					possinterest = str(rawpossinterest).replace("[","").replace("]","").replace(" ","").replace("\n","").split(",")
+					if categ not in interpro_processed:
+						interpro_processed[categ]=[]
+						for stelle in possinterest:
+							if int(stelle) not in interpro_processed[categ]:
+								interpro_processed[categ].append(int(stelle))
+	except:
+		#logging.exception("message")
+		pass
 	return	interpro_processed
 # ---------------------------------------------------------------------------------------------------------------------------------------------
 def create_svg(sequences_dict, positions, colordict, startposition, windowsize, poi, forbidden, proteinfeatures, Konserve, featurecolors, translator, topgun):
@@ -274,8 +273,8 @@ def create_svg(sequences_dict, positions, colordict, startposition, windowsize, 
     if startposition == "none":
         startposition = 1
 
-    filename = poi+"_Position"+str(startposition)+"_Windowsize"+str(windowsize)+".svg"
-    filename_print = poi+"_Position"+str(startposition)+"_Windowsize"+str(windowsize)+"_print.svg"
+    filename 		= poi+"_Position"+str(startposition)+"_Windowsize"+str(windowsize)+"_Sequences"+str(topgun)+".svg"
+    filename_print 	= poi+"_Position"+str(startposition)+"_Windowsize"+str(windowsize)+"_Sequences"+str(topgun)+"_print.svg"
     with open(filename_print,"w+") as dwg:
     #dwg = open(filename,"a")
         x = 50
@@ -685,8 +684,8 @@ def generate_result():
 
 
     # Dateinamen erstellen
-    filename = f"{input1}_Position{input2}_Windowsize{slider}.svg"
-    filename_print = f"{input1}_Position{input2}_Windowsize{slider}_print.svg"
+    filename = f"{input1}_Position{input2}_Windowsize{slider}_Sequences{topguns}.svg"
+    filename_print = f"{input1}_Position{input2}_Windowsize{slider}_Sequences{topguns}_print.svg"
     ids 			         = idgetter(alignmentfile)
     sequences 		        = CUSTOM_ALIGN(alignmentfile)
     protein_of_interest 	= input1
@@ -710,6 +709,7 @@ def generate_result():
         feature_dict = interprodownloader(protein_of_interest)
     except:
         feature_dict = {}
+    #print(feature_dict)
     ############
 
     counter = 0
