@@ -1,3 +1,5 @@
+# WebApp
+This work is now also available under [schafft-wissen.org/CALVI](https://schafft-wissen.org/CALVI). The web app offers additional features such as sorting the sequences not by the number of all features but by the number of user selected features. The user can also adjust the number of sequences shown. More features will be added to the app. The standalone script below still works but won't be maintained going forward.
 ___
 # Introduction
 The file *Latest/Standalone_Annotate_Alignment_V11.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
