@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALVI Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #005a9c;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .code-box {
+            background: #eee;
+            padding: 10px;
+            border-left: 4px solid #005a9c;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .tip {
+            background: #e6f7ff;
+            padding: 10px;
+            border-left: 4px solid #007acc;
+            font-style: italic;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: gray;
+        }
+        ol li::marker {
+    color: red;
+}
+    </style>
+</head>
+<body>
+    <h1>CALVI Documentation</h1>
+    <p>Welcome to the documentation for the bioinformatics tool <strong>CALVI</strong>. Below, you'll find information on how to use it. </p>
+
+    <div class="section">
+        <h2>1. Overview</h2>
+        <p>This tool allows users to analyze protein alignments using <a href="https://www.uniprot.org/help/downloads">Uniprot data</a>. Simply enter an accession to retrieve alignment results. CALVI will try to look for default <a href="http://eggnog45.embl.de/#/app/home">Eggnog</a> alignments (<a href="http://eggnog45.embl.de/download/eggnog_5.0/per_tax_level/2759/">Eukaryota</a>).</p>
+        <p>As this taxonomic level is very broad please expect the alignments to contain gaps and be noisy. It is recommended to provide a more fine-tuned alignment (for example via ClustalOmega), as long as the sequence identifiers are uniprot accessions.</p>
+        <p>CALVI will then fetch uniprot functional annotations ('VARIANT', 'ACT_SITE' etc.) and color the alignment accordingly. The result is presented as a .svg in two versions, one with mouseover functionality and one without. </p>
+    </div>
+
+    <div class="section">
+        <h2>2. How to Use</h2>
+        <p>To perform an alignment search, follow these steps:</p>
+        <ol>
+            <li>Enter a valid Uniprot accession in the search box.</li>
+            <li>Enter a protein position.</li>
+            <li>Determine the viewing range. The chosen protein position (2) will be in the center, and the number of positions selected here will be shown around this position.</li>
+            <li>The number of sequences shown determines the how stretched the alignment will be. In the alignment may be 100 sequences, but only for a small subset of those will be functional information in the selected viewing range.
+            Typically only the top 10 sequences provide useful information.</li>
+            <li>The user can select how CALVI should sort the sequences. By default the sequences will be sorted by their number of functional annotations in the selected viewing range,
+            but the user may also select a particular functional annotation type from uniprot to sort by - if available. </li>
+            <li>Paste your Clustal Omega alignment in this text field. Make sure that the sequence identifiers are valid uniprot accessions. </li>
+            <li>If CALVI successfully found a default eggnog alignment, check this box to use it. This will overwrite any custom alignment pasted into field (6). </li>
+            <li>The user can then download the result as .svg.</li>
+        </ol>
+        <img src="/CALVI/static/howto_V1.png" alt="CALVI Overview Image 1"
+     style="max-width: 100%; height: auto; display: block; margin: 20px auto;
+            border: 3px solid black; border-radius: 5px;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);">
+    </div>
+
+    <div class="section">
+        <h2>3. Example Query</h2>
+        <p>Below is an example of a valid Uniprot accession query:</p>
+        <div class="code-box">
+            P61586  # Example Uniprot Accession
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. Tips & Best Practices</h2>
+        <div class="tip">
+      You can also try to submit gene names instead of uniprot accessions, such as "BRAF" or "RHOA". However, for best results, use specific accession numbers instead of gene names, as they provide more precise matches.
+        </div>
+        <div class="tip">
+      The mouseover function on the .svg can be used via right clicking on the result image, open image in new tab or by downloading the .svg and opening it with a browser of your choice (instead of an image modification program).
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 schafft-wissen.org CALVI | <a href="{{ URL_PREFIX }}/">Back to Home</a></p>
+    </div>
+</body>
+</html>

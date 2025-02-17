@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CALVI</title>
@@ -11,6 +13,36 @@
             padding: 0;
             background-color: #f4f4f9;
             color: #333;
+        }
+        /* Loading message styling */
+        #loadingMessage {
+            font-size: 16px;
+            font-weight: 500;
+            color: #007bff; /* Modern blue tone */
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Space between text and icon */
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(0, 123, 255, 0.1);
+            border: 1px solid rgba(0, 123, 255, 0.3);
+            width: fit-content;
+            margin-top: 5px;
+        }
+
+        /* Spinning loader */
+        .spinner {
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(0, 123, 255, 0.3);
+            border-top-color: #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         .input-row {
             display: flex;
@@ -23,6 +55,9 @@
             display: flex;
             flex-direction: column; /* Stack label and input vertically */
         }
+        #sortmech {
+              width: 200px; /* Adjust the width as needed */
+          }
         .container {
             max-width: 800px;
             margin: 50px auto;
@@ -67,6 +102,14 @@
             border-radius: 50%;
             background: #3498db;
             cursor: pointer;
+        }
+        select {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: #f1f3f5;
         }
         #topguns{
           width: 30px;
@@ -132,6 +175,9 @@
             cursor: pointer;
             margin-top: 10px;
             transition: background-color 0.3s ease;
+        }
+        #input1::placeholder {
+          font-size: 0.8em;
         }
         button:hover {
             background-color: #2980b9;
@@ -203,6 +249,12 @@
             font-weight: bold;
             color: #3498db;
         }
+        @media only screen and (max-width: 768px) {
+            .info-sections-container {
+              display: none;
+            }
+
+}
     </style>
 </head>
 <body>
@@ -215,6 +267,7 @@
           <h2>About the Tool</h2>
           <p>This tool helps you generate contextual alignments for protein sequences.<br>Those will be highlighted with functional information from Uniprot (see the
             <span style="color:black;background-color:#FFFF00">Example</span>).</p>
+          <p>For more instructions see <a href="{{ URL_PREFIX }}/documentation">Documentation</a></p>
           <p>For more instructions also see <a href="https://github.com/tschmenger/Annotate_Alignments?tab=readme-ov-file#preparing-alignment">github</a></p>
       </div>
 
@@ -244,33 +297,59 @@
     <div class="container">
         <h1>CALVI - Contextual Alignment Viewer</h1>
         <p>Use this tool to generate alignments based on functional information</p>
-
+        <input type="hidden" id="defaultAlignmentUsed" value="false">
         <h2>Input Fields</h2>
         <div class="input-row">
             <div class="input-group">
-                <label for="input1">Target Uniprot (Release: 2024_06) Accession:</label>
-                <input type="text" id="input1" placeholder="Enter Uniprot accession">
+                <label for="input1">Target (Uniprot Release: 2024_06) Accession:</label>
+                <input type="text" id="input1" placeholder="Enter Uniprot accession (e.g. P61586)">
+                <div id="alignmentResult"></div>
             </div>
+
             <div class="input-group">
                 <label for="input2">Position of Interest:</label>
                 <input type="text" id="input2" placeholder="Enter position">
             </div>
         </div>
 
+
         <div class="slider-container">
             <label for="slider">+/- Residues Around Position of Interest:</label>
             <input type="range" id="slider" min="0" max="100" value="10" oninput="updateSliderValue(this.value)">
             <span class="slider-value" id="slider-value">10</span>
         </div>
+        <div class="input-row">
+            <div class="input-group">
+              <label for="topguns">Shown number of sequences:</label>
+              <input type="text" id="topguns" value="10">
+            </div>
 
-        <div>
-            <label for="topguns">Shown number of sequences:</label>
-            <input type="text" id="topguns" value="10">
+            <div class="input-group">
+              <label for="sortmech">Sort sequences by:</label>
+              <select name="sortmech" id="sortmech">
+                  <option value="FeatureSum" selected>All features</option>
+                  <option value="VARIANT">Known variants (VARIANTS)</option>
+                  <option value="BINDING">Known binding sites (BINDING)</option>
+                  <option value="MOD_RES">PTM sites (MOD_RES)</option>
+                  <option value="ACT_SITE">Active sites (ACT_SITE)</option>
+                  <option value="MUTAGEN">Mutagenesis sites (MUTAGEN)</option>
+              </select>
+            </div>
         </div>
-
 
         <label for="clustal_input">Clustal Omega Alignment:</label>
         <textarea id="clustal_input" rows="4" placeholder="Paste your Clustal Omega alignment here..."></textarea>
+
+        <!-- Hidden default alignment -->
+        <textarea id="default_alignment" style="display:none;"></textarea>
+
+        <!-- Default Alignment Checkbox Container (initially hidden) -->
+        <div id="defaultAlignmentContainer" style="display: none;">
+          <label title="This default alignment is fetched from eggnog (Eukaryota) and is quite noisy. Check this box to use the default alignment instead of entering your own. It is recommended to use custom alignments.">
+            <input type="checkbox" id="useDefaultAlignmentCheckbox">
+            Use default alignment
+          </label>
+        </div>
 
         <button id="submit" onclick="handleSubmit()">Submit</button>
         <button id="example" onclick="showExample()">Example</button>
@@ -294,9 +373,96 @@
     </div>
 
     <script>
+
+
+
+    const URL_PREFIX = "{{ URL_PREFIX }}";
+    // console.log("URL_PREFIX from template:", URL_PREFIX);
+
+
+    function showLoadingMessage() {
+        let resultDiv = document.getElementById("alignmentResult");
+        resultDiv.innerHTML = `
+            <div id="loadingMessage">
+                <div class="spinner"></div>
+                Looking for default alignment...
+            </div>
+        `;
+    }
+
+
+
+
+
+
+    function showResultMessage(message) {
+        let resultDiv = document.getElementById("alignmentResult");
+        resultDiv.innerHTML = `
+            <div id="loadingMessage" style="color: green; border-color: rgba(0, 200, 0, 0.3); background: rgba(0, 200, 0, 0.1);">
+                ✅ ${message}
+            </div>
+        `;
+    }
+
+
+
+
+
+
+
+    let lastCheckedAccession = ""; // Global variable to track the last request
+
+    function checkAlignment(accession) {
+        lastCheckedAccession = accession; // Store the latest requested accession
+        fetch(`${URL_PREFIX}/check_alignment/${accession}`)
+            .then(response => response.text())
+            .then(text => {
+              //  console.log("Raw response text:", text);
+                let data = {};
+                try {
+                    data = JSON.parse(text);
+                } catch (error) {
+                //    console.error("Error parsing JSON:", error);
+                    document.getElementById("alignmentResult").innerHTML = "<div style='color: red;'>Error parsing server response.</div>";
+                    return;
+                }
+
+                // ✅ Only update the UI if the input field still has the same accession
+                if (document.getElementById("input1").value.trim() === accession) {
+                    if (data.alignment && Object.keys(data.alignment).length > 0) {
+                        document.getElementById('default_alignment').value = JSON.stringify(data.alignment);
+                        document.getElementById('defaultAlignmentContainer').style.display = 'block';
+                    } else {
+                        document.getElementById('defaultAlignmentContainer').style.display = 'none';
+                        document.getElementById('useDefaultAlignmentCheckbox').checked = false;
+                    }
+                    showResultMessage(data.message);
+                } else {
+                    console.log(`Ignored outdated response for ${accession}`);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                document.getElementById("alignmentResult").innerHTML = "<div style='color: red;'>Error checking alignment.</div>";
+                document.getElementById('defaultAlignmentContainer').style.display = 'none';
+                document.getElementById('useDefaultAlignmentCheckbox').checked = false;
+            });
+    }
+
+
+
+
+
+
+
+
+
         function updateSliderValue(value) {
             document.getElementById('slider-value').textContent = value;
         }
+
+
+
 
         function showError(message) {
             const errorMessage = document.getElementById('error-message');
@@ -304,68 +470,95 @@
             errorMessage.style.display = 'block';
         }
 
+
+
+
+
         function clearError() {
             const errorMessage = document.getElementById('error-message');
             errorMessage.textContent = '';
             errorMessage.style.display = 'none';
         }
 
-        function handleSubmit() {
-            clearError();
 
-            // Input validation
-            const input1 = document.getElementById('input1').value.trim();
-            const input2 = document.getElementById('input2').value.trim();
-            const slider = document.getElementById('slider').value.trim();
-            const clustalInput = document.getElementById('clustal_input').value.trim();
-            const topguns = document.getElementById('topguns').value.trim();
-            if (!input1 || !input2 || !clustalInput) {
-                showError('All fields are required. Please fill out all fields.');
-                return;
-            }
 
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('result').style.display = 'none';
 
-            fetch('/generate', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ input1, input2, slider, clustalInput, topguns })
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Server error: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Hide the loading spinner and show the result section
-                    document.getElementById('loading').style.display = 'none';
-                    document.getElementById('result').style.display = 'block';
-                    document.getElementById('buttons').style.display = 'inline-block';
-                    // Update the download buttons
-                    const download1 = document.getElementById('download1');
-                    const download2 = document.getElementById('download2');
 
-                    download1.disabled = false;
-                    download2.disabled = false;
-                    const svgPath = `/static/results/${data.filename}`;
-                    const svgPrintPath = `/static/results/${data.filename_print}`;
-                    download1.onclick = () => downloadFile(svgPath);
-                    download2.onclick = () => downloadFile(svgPrintPath);
-                    // Display the SVG in the result section
-                    const resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = `<img src="${svgPath}" alt="Generated SVG" style="max-width:100%;">`;
-                })
-                .catch(error => {
-                    document.getElementById('loading').style.display = 'none';
-                    showError('An error occurred while processing your request. Please check your input or try again later.');
-                    console.error('Error:', error);
-                });
+
+
+
+    function handleSubmit() {
+    clearError();
+
+    const input1 = document.getElementById('input1').value.trim();
+    const input2 = document.getElementById('input2').value.trim();
+    const slider = document.getElementById('slider').value.trim();
+    const manualAlignment = document.getElementById('clustal_input').value.trim();
+    const defaultAlignment = document.getElementById('default_alignment').value.trim();
+    const topguns = document.getElementById('topguns').value.trim();
+    const sortmech = document.getElementById('sortmech').value;
+    const useDefault = document.getElementById('useDefaultAlignmentCheckbox').checked;
+
+    // Determine which alignment to use:
+    const clustalInput = useDefault && defaultAlignment ? defaultAlignment : manualAlignment;
+
+    if (!input1 || !input2 || !clustalInput) {
+        showError('All fields are required. Please fill out all fields.');
+        return;
+    }
+
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('result').style.display = 'none';
+
+    // Note the /CALVI prefix
+    fetch(URL_PREFIX + '/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          input1,
+          input2,
+          slider,
+          clustalInput,
+          topguns,
+          sortmech,
+          defaultAlignmentUsed: useDefault})
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Server error: ' + response.statusText);
         }
+        return response.json();
+    })
+    .then(data => {
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('buttons').style.display = 'inline-block';
+        const download1 = document.getElementById('download1');
+        const download2 = document.getElementById('download2');
+        download1.disabled = false;
+        download2.disabled = false;
+        const svgPath = `${URL_PREFIX}/static/results/${data.filename}`;
+        const svgPrintPath = `${URL_PREFIX}/static/results/${data.filename_print}`;
+        download1.onclick = () => downloadFile(svgPath);
+        download2.onclick = () => downloadFile(svgPrintPath);
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = `<img src="${svgPath}" alt="Generated SVG" style="max-width:100%;">`;
+    })
+    .catch(error => {
+        document.getElementById('loading').style.display = 'none';
+        showError('An error occurred while processing your request. Please check your input (Is accession okay? Is the position within the target proteins length?) or try again later.');
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+
+
 
         function showExample() {
-            fetch('/example_data')
+            fetch(URL_PREFIX + '/example_data')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to fetch example data.');
@@ -401,6 +594,11 @@
                 });
         }
 
+
+
+
+
+
         function downloadFile(filename) {
             const link = document.createElement('a');
             link.href = `${filename}`;
@@ -409,6 +607,12 @@
             link.click();
             document.body.removeChild(link);
           };
+
+
+
+
+
+
 
           function toggleInfo(sectionId, button) {
               const section = document.getElementById(sectionId);
@@ -426,6 +630,77 @@
           }
 
 
+
+
+
+          document.addEventListener("DOMContentLoaded", function() {
+              // Attach event listener to input1
+              document.getElementById("input1").addEventListener("input", function() {
+                  let accession = this.value.trim();
+                  if (accession.length > 2) {
+                      showLoadingMessage();
+                      checkAlignment(accession);
+                  } else {
+                      document.getElementById("alignmentResult").innerHTML = "";
+                      // Hide the container if no alignment is found, and uncheck the checkbox
+                      document.getElementById('defaultAlignmentContainer').style.display = 'none';
+                      document.getElementById('useDefaultAlignmentCheckbox').checked = false;
+                  }
+              });
+          });
+
+
+
+    function startTour() {
+              introJs().setOptions({
+                steps: [
+                  {
+                    element: '#input1',
+                    intro: 'Enter a Uniprot accession here.'
+                  },
+                  {
+                    element: '#input2',
+                    intro: 'Enter the protein position of interest here.'
+                  },
+                  {
+                    element: '#slider',
+                    intro: 'Select the viewing range +/- psotions around your position of interest.'
+                  },
+                  {
+                    element: '#topguns',
+                    intro: 'Select the number of sequences that will be shown. Affects performance and readability.'
+                  },
+                  {
+                    element: '#sortmech',
+                    intro: 'Select the type of feature to sort the shown sequences by.'
+                  },
+                  {
+                    element: '#clustal_input',
+                    intro: 'Paste a custom ClustalOmega alignment here, using uniprot accessions as sequence identifiers.'
+                  },
+                  {
+                    element: '#submit',
+                    intro: 'Submit your query.'
+                  },
+                  {
+                    element: '#example',
+                    intro: 'Show an example.'
+                  },
+                  {
+                    element: '.toggle-button',
+                    intro: 'Click here to expand additional information. On mobile, please check the Documentation or switch to desktop view.'
+                  },
+                  {
+                    element: 'footer',
+                    intro: 'Check out the documentation here if you need more details.'
+                  }
+                ]
+              }).start();
+            }
     </script>
+<footer style="text-align: center; margin-top: 20px; font-size: 14px;">
+    <button onclick="startTour()">Start Tour</button>
+    <a href="{{ URL_PREFIX }}/documentation" style="color: gray; text-decoration: none;">Documentation</a>
+</footer>
 </body>
 </html>
