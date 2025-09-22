@@ -1,5 +1,7 @@
 # WebApp
-This work is now also available under [schafft-wissen.org/CALVI](https://schafft-wissen.org/CALVI). The web app offers additional features such as sorting the sequences not by the number of all features but by the number of user selected features. The user can also adjust the number of sequences shown. More features will be added to the app. The standalone script below still works but won't be maintained going forward.
+This work is now also available under [schafft-wissen.org/CALVI](https://schafft-wissen.org/CALVI). The web app offers additional features such as sorting the sequences not only by the number of all features, but by the number of user selected features (phosphosites, active sites etc.). The user can also adjust the number of sequences shown. Additionally, it is possible to use a default alignment ([Eukaryota](http://eggnog45.embl.de/download/eggnog_5.0/per_tax_level/2759/) via [Eggnog](http://eggnog45.embl.de/#/app/home)). Those are usually quite noisy, but can give some info at a glance, without generating a proper alignment first (see below on how to do that).
+
+The standalone script below still works, but won't be maintained going forward. **Using the above web app is now the recommended way of generating the desired images**.
 ___
 # Introduction
 The file *Latest/Standalone_Annotate_Alignment_V11.py* comes with several python3.6.8 functions that can annotate and highlight positions in a Clustal-formatted alignment. The resultfile is a .svg that is fully compatible for further editing in Inkscape/Illustrator or for inspection via your browser.
@@ -12,7 +14,7 @@ Please cite
 
 and
 
-`Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2023` 
+`Gurdeep Singh (1)*, Torsten Schmenger (1)*, Juan-Carlos Gonzalez-Sanchez (1)*, Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Discriminating activating, deactivating and resistance variants in protein kinases"; 2025` 
 
 when using this work.
 ___
@@ -36,7 +38,7 @@ In general, this script needs only one thing to work:
 `python3 Standalone_Annotate_Alignment_V11.py P61586 34 30 RHOA_BlastpExample_ClustalMSA.clustal none none`
 
 ___
-## Preparing alignment
+## Preparing an alignment
 This applies to users who do not already have an alignment. The following steps can used to create an alignment using blastp and clustal omega.
 
 - Step 1: Download the fasta sequence of your protein of interest. For RHOA you could do this via Uniprot, like [this](https://rest.uniprot.org/uniprotkb/P61586.fasta). Note: You can easily build this url using **https://rest.uniprot.org/uniprotkb/** + uniprotID +**.fasta**
