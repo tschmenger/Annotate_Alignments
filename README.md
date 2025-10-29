@@ -8,13 +8,15 @@ The file *Latest/Standalone_Annotate_Alignment_V11.py* comes with several python
 
 ___
 ## Citation
-Please cite 
+Please cite
 
-`Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.`
+`Singh, G., Schmenger, T., Gonzalez-Sanchez, J.C. et al. Discriminating activating, deactivating and resistance variants in protein kinases. Genome Med 17, 133 (2025). https://doi.org/10.1186/s13073-025-01564-z`
 
 and
 
-`Gurdeep Singh (1)*, Torsten Schmenger (1)*, Juan-Carlos Gonzalez-Sanchez (1)*, Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Discriminating activating, deactivating and resistance variants in protein kinases"; 2025` 
+`Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.`
+
+
 
 when using this work.
 ___
