@@ -183,7 +183,11 @@
             background-color: #2980b9;
         }
         #example {
-          background-color: #FFFF00; /* yellow color for download buttons */
+          background-color: #FFFF00; /* yellow color  */
+          color: black;
+        }
+        #example_two {
+          background-color: #FFFF00; /* yellow color  */
           color: black;
         }
         #download1, #download2 {
@@ -252,9 +256,51 @@
         @media only screen and (max-width: 768px) {
             .info-sections-container {
               display: none;
+            }}
+            footer {
+                display: flex;
+                justify-content: center;
+                align-items: center; /* Ensures both items align */
+                gap: 15px; /* Adds space between the elements */
+                padding: 15px;
             }
 
-}
+            footer a {
+                display: flex;  /* Makes it behave like a button */
+                align-items: center; /* Centers text inside */
+                justify-content: center; /* Ensures text is centered horizontally */
+                text-decoration: none;
+                color: white;
+                font-size: 14px;
+                padding: 8px 15px; /* Match padding with button */
+                height: 34px; /* Match button height */
+                line-height: 34px; /* Ensures vertical centering */
+                border-radius: 8px;
+            }
+
+            #tourButton {
+                background-color: #333;
+                color: white;
+                border: 2px solid #888;
+                padding: 8px 15px;
+                font-size: 14px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                height: 34px; /* Ensures uniform height */
+                display: flex;
+                align-items: center; /* Centers the text inside the button */
+            }
+
+            #tourButton:hover {
+                background-color: #555;
+                border-color: #aaa;
+            }
+
+            #tourButton:active {
+                transform: scale(0.95);
+            }
+
     </style>
 </head>
 <body>
@@ -279,7 +325,7 @@
           <p>Please cite this tool as follows:</p>
           <p><i>1) <small>Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.</small></i><p>
           <p>and</p>
-          <p><i>2) <small>Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2023.</small></i><p>
+          <p><i>2) <small>Gurdeep Singh (1)+, Torsten Schmenger (1)+, Juan-Carlos Gonzalez-Sanchez (1)+, Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Discriminating activating, deactivating and resistance variants in protein kinases. Genome Med 17, 133 (2025)".</small></i><p>
 
       </div>
 
@@ -301,7 +347,7 @@
         <h2>Input Fields</h2>
         <div class="input-row">
             <div class="input-group">
-                <label for="input1">Target (Uniprot Release: 2024_06) Accession:</label>
+                <label for="input1">Target (Uniprot Release: 2025_04) Accession:</label>
                 <input type="text" id="input1" placeholder="Enter Uniprot accession (e.g. P61586)">
                 <div id="alignmentResult"></div>
             </div>
@@ -352,7 +398,8 @@
         </div>
 
         <button id="submit" onclick="handleSubmit()">Submit</button>
-        <button id="example" onclick="showExample()">Example</button>
+        <button id="example" onclick="showExample()">Example (RHOA)</button>
+        <button id="example_two" onclick="showExample_two()">Example (RAF1)</button>
         <div id="buttons" style="display: none; margin-left: 20px;">
             <button id="download1" disabled>Download .svg</button>
             <button id="download2" disabled>Download .svg (easy print)</button>
@@ -542,7 +589,7 @@
         download1.onclick = () => downloadFile(svgPath);
         download2.onclick = () => downloadFile(svgPrintPath);
         const resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = `<img src="${svgPath}" alt="Generated SVG" style="max-width:100%;">`;
+        resultDiv.innerHTML = `<object type="image/svg+xml" data="${svgPath}" id="result-object" style="max-width:100%;"></object>`;
     })
     .catch(error => {
         document.getElementById('loading').style.display = 'none';
@@ -575,7 +622,8 @@
 
                     // Display the pre-generated SVG
                     const resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = `<h3>Example Preview:</h3><img src="${data.svgPath}" alt="Example SVG" style="max-width:100%;">`;
+                    resultDiv.innerHTML = `<h3>Example Preview:</h3><object type="image/svg+xml" data="${data.svgPath}" id="result-object" style="max-width:100%;"></object>
+`;
                     resultDiv.style.display = 'block';
 
                     // Enable the download buttons for the example
@@ -593,7 +641,42 @@
                     alert('Could not load example data. Please try again later.');
                 });
         }
+        function showExample_two() {
+            fetch(URL_PREFIX + '/example_data_two')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch example data.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Populate the form with the example values
+                    document.getElementById('input1').value = data.input1;
+                    document.getElementById('input2').value = data.input2;
+                    document.getElementById('slider').value = data.slider;
+                    updateSliderValue(data.slider); // Update the slider display
+                    document.getElementById('clustal_input').value = data.clustalInput;
 
+                    // Display the pre-generated SVG
+                    const resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = `<h3>Example Preview:</h3><object type="image/svg+xml" data="${data.svgPath}" id="result-object" style="max-width:100%;"></object>`;
+                    resultDiv.style.display = 'block';
+
+                    // Enable the download buttons for the example
+                    const buttonsDiv = document.getElementById('buttons');
+                    buttonsDiv.style.display = 'inline-block';
+                    const download1 = document.getElementById('download1');
+                    const download2 = document.getElementById('download2');
+                    download1.disabled = false;
+                    download2.disabled = false;
+                    download1.onclick = () => downloadFile(data.svgPath);
+                    download2.onclick = () => downloadFile(data.svgPrintPath);
+                })
+                .catch(error => {
+                    console.error('Error fetching example data:', error);
+                    alert('Could not load example data. Please try again later.');
+                });
+        }
 
 
 
@@ -664,7 +747,7 @@
                   },
                   {
                     element: '#slider',
-                    intro: 'Select the viewing range +/- psotions around your position of interest.'
+                    intro: 'Select the viewing range +/- positions around your position of interest.'
                   },
                   {
                     element: '#topguns',
@@ -684,7 +767,7 @@
                   },
                   {
                     element: '#example',
-                    intro: 'Show an example.'
+                    intro: 'Show examples.'
                   },
                   {
                     element: '.toggle-button',
@@ -699,7 +782,7 @@
             }
     </script>
 <footer style="text-align: center; margin-top: 20px; font-size: 14px;">
-    <button onclick="startTour()">Start Tour</button>
+    <button id="tourButton" onclick="startTour()">Start Tour</button>
     <a href="{{ URL_PREFIX }}/documentation" style="color: gray; text-decoration: none;">Documentation</a>
 </footer>
 </body>

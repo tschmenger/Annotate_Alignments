@@ -4,7 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CALVI Documentation</title>
+    <script>
+    const URL_PREFIX = "{{ URL_PREFIX }}";
+    </script>
     <style>
+      .slideshow-container {
+            position: relative;
+            max-width: 800px; /* Adjust as needed */
+            margin: auto;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* Optional: Rounded corners */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Optional: Subtle shadow */
+        }
+
+        /* Navigation buttons */
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            font-weight: bold;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+            opacity: 0; /* Hidden by default */
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* Show arrows on hover */
+        .slideshow-container:hover .prev,
+        .slideshow-container:hover .next {
+            opacity: 1;
+        }
         body {
             font-family: Arial, sans-serif;
             margin: 40px auto;
@@ -55,6 +101,30 @@
         <p>CALVI will then fetch uniprot functional annotations ('VARIANT', 'ACT_SITE' etc.) and color the alignment accordingly. The result is presented as a .svg in two versions, one with mouseover functionality and one without. </p>
     </div>
 
+    <div class="slideshow-container">
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides.png" alt="Slide 1">
+        </div>
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides2.png" alt="Slide 2">
+        </div>
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides3.png" alt="Slide 3">
+        </div>
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides4.png" alt="Slide 4">
+        </div>
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides5.png" alt="Slide 5">
+        </div>
+        <div class="slide fade">
+            <img src="{{ URL_PREFIX }}/static/slides/Alignment_Slides6.png" alt="Slide 6">
+        </div>
+        <!-- Navigation Arrows -->
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>
+
     <div class="section">
         <h2>2. How to Use</h2>
         <p>To perform an alignment search, follow these steps:</p>
@@ -70,7 +140,7 @@
             <li>If CALVI successfully found a default eggnog alignment, check this box to use it. This will overwrite any custom alignment pasted into field (6). </li>
             <li>The user can then download the result as .svg.</li>
         </ol>
-        <img src="/CALVI/static/howto_V1.png" alt="CALVI Overview Image 1"
+        <img src="{{ URL_PREFIX }}/static/howto_V1.png" alt="CALVI Overview Image 1"
      style="max-width: 100%; height: auto; display: block; margin: 20px auto;
             border: 3px solid black; border-radius: 5px;
             box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);">
@@ -85,7 +155,26 @@
     </div>
 
     <div class="section">
-        <h2>4. Tips & Best Practices</h2>
+        <h2>4. Output</h2>
+        <img src="{{ URL_PREFIX }}/static/example/output_explanation.png" alt="CALVI Output Explanation"
+        
+        <p><br> 1: Legend. Circles on the alignment follow the color categories based on entry types from UniProt.<br>
+    2: Protein features taken from Interpro.<br>
+    3: IDs for each sequence. Where possible UniprotIDs (from the input alignment) are translated into gene names.<br>
+    4: The shown starting position for each aligned sequence.<br>
+    5: Sequence conservation. Corresponds to sequence identity for this position of the alignment. Note Columns of the alignment are colored based on amino acid type if the amino acid type (of the protein of interest) is more than 70 % conserved at this position.<br>
+    6: Residue numbering for the protein of interest.<br>
+    7: Positions clustered together with the input position (here 34) are displayed with the same color. A rectangle highlights the position of interest.<br>
+    8: The shown ending position for each aligned sequence.</p>
+
+    </div>
+
+
+
+
+
+    <div class="section">
+        <h2>5. Tips & Best Practices</h2>
         <div class="tip">
       You can also try to submit gene names instead of uniprot accessions, such as "BRAF" or "RHOA". However, for best results, use specific accession numbers instead of gene names, as they provide more precise matches.
         </div>
@@ -94,8 +183,48 @@
         </div>
     </div>
 
-    <div class="footer">
-        <p>&copy; 2025 schafft-wissen.org CALVI | <a href="{{ URL_PREFIX }}/">Back to Home</a></p>
+    <div class="section">
+        <h2>6. Contact</h2>
+        <p>If you have any questions, reach out to torsten.schmenger [ a t ] bioquant.uni-heidelberg.de.</p>
+        <p>You can also check the <a href="https://github.com/tschmenger/Annotate_Alignments">github</a> repository</p>
     </div>
+
+    <div class="section">
+        <h2>7. Citation</h2>
+        <p>Please cite this tool as follows:</p>
+        <div class="code-box">
+            Torsten Schmenger, Gaurav Diwan, Robert Bruce Russell. "PROTEORIZER: A holistic approach to untangle functional consequences of variants of unknown significance", https://doi.org/10.1101/2024.07.16.603688.
+        </div>
+        <div class="code-box">
+            Gurdeep Singh (1)*+, Torsten Schmenger (1)*+, Juan-Carlos Gonzalez-Sanchez (1), Anastasiia Kutkina (1), Nina Bremec (1), Gaurav Diwan (1), Cristina Lopez (2), Rocio Sotillo (3), Robert B Russell (1)+; "Identify activating, deactivating and resistance variants in protein kinases"; 2024.
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2026 schafft-wissen.org CALVI | <a href="/">Back to Home</a> <a href="{{ URL_PREFIX }}/">Back to CALVI</a></p>
+    </div>
+
+<script>
+
+        let slideIndex = 0;
+        showSlides(slideIndex);
+
+        function changeSlide(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function showSlides(n) {
+            let slides = document.getElementsByClassName("slide");
+
+            if (n >= slides.length) { slideIndex = 0; }
+            if (n < 0) { slideIndex = slides.length - 1; }
+
+            for (let slide of slides) {
+                slide.style.display = "none";
+            }
+
+            slides[slideIndex].style.display = "block";
+        }
+</script>
+
 </body>
 </html>
